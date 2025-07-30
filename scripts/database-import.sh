@@ -13,9 +13,8 @@ scalingo login --api-token "${SCALINGO_API_TOKEN}"
 
 # Retrieve the addon id:
 addon_id="$( scalingo --app "${SCALINGO_SOURCE_APP}" addons \
-             | grep "${SCALINGO_ADDON_KIND}" \
-             | cut -d "|" -f 3 \
-             | tr -d " " )"
+    | grep "${SCALINGO_ADDON_KIND}" \
+    | grep -oP 'ad-[a-f0-9-]+' )"
 
 # Download the latest backup available for the specified addon:
 scalingo --app "${SCALINGO_SOURCE_APP}" --addon "${addon_id}" \
