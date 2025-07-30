@@ -1,7 +1,7 @@
 {
   "jobs": [
     {
-      "command": "0 3 * * * php bin/console app:operation:audio:clean",
+      "command": "0 3 * * * sh /app/scripts/database-import.sh",
       "size": "S"
     }
   ]
