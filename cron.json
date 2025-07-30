@@ -1,0 +1,8 @@
+{
+  "jobs": [
+    {
+      "command": "0 3 * * * php bin/console app:operation:audio:clean",
+      "size": "S"
+    }
+  ]
+}
