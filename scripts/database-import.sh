@@ -28,5 +28,9 @@ backup_file_name="$( tar --list --file="${archive_name}" \
 # Extract the archive containing the downloaded backup:
 tar --extract --verbose --file="${archive_name}" --directory="/app/backups/"
 
+# Fix MySQL view definers (replace prod definer with local user)
+echo "Fixing MySQL view definers..."
+sed -i "s/DEFINER=\`[^\`]*\`@\`[^\`]*\`/DEFINER=\`${METABASE_ASKARA_DB_USER}\`@\`%\`/g" /app/backups/${backup_file_name}
+
 # Restore the data:
 mysql --user=${METABASE_ASKARA_DB_USER} --password=${METABASE_ASKARA_DB_PASSWORD} --host=${METABASE_ASKARA_DB_HOST} --port=${METABASE_ASKARA_DB_PORT} ${METABASE_ASKARA_DB_NAME} < /app/backups/${backup_file_name}
